@@ -31,21 +31,21 @@ default: &default
 
 development:
    adapter: mysql2
-   database: library_development
+   database: student_development
    username: jocari
    password: jocari2021
    host: localhost
           
 test:
    adapter: mysql2
-   database: library_test
+   database: student_test
    username: jocari
    password: jocari2021
    host: localhost
    
 production:
    adapter: mysql2
-   database: library_production
+   database: student_production
    username: jocari
    password: jocari2021
    host: localhost
