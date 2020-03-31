@@ -1,0 +1,21 @@
+<% if current_user.id == @student.user_id || current_user.is_admin?%>
+<div class="container margin-top">
+    <div class="m-5 bg-nav px-5 py-4 borde">
+        <%unless current_user.is_admin?%>
+        <h1 class="text-primary text-center mb-5">EDITAR FICHA</h1>
+        <%else%>
+        <h1 class="text-primary text-center mb-5">PROCESAR SOLICITUD DE BECA</h1>
+        <%end%>
+        <%= render 'form', student: @student %>
+
+    </div>
+</div>
+<%else%>
+<div class="container margin-top">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Ooooopss!!!</h4>
+        <p class="text-uppercase">Parece que la Url tiene un error, pulsa el boton volver para ir a una url valida.</p>
+        <p class="mb-0"><%= link_to 'VOLVER', students_path, class:"btn btn-danger mt-2" %></p>
+    </div>
+</div>
+<%end%>

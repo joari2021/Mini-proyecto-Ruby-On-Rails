@@ -1,0 +1,167 @@
+<%= form_with(model: student, local: true, class:"was-validated text-uppercase") do |f| %>
+
+<% if current_user.is_admin? == false%>
+<% if student.errors.any? %>
+<div class="mt-3 mb-3 border-error alert-danger text-justify">
+
+    <div id="error_explanation" class="p-3">
+        <% if student.errors.count == 1%>
+        <h4 class="alert-heading mb-2"><%= pluralize(student.errors.count, "error ")%>ha impedido que los datos se guardaran, verifique el siguiente campo:</h4>
+        <% else %>
+        <h4 class="alert-heading mb-2"><%= pluralize(student.errors.count, "errores")%> han impedido que los datos se guardaran, verifique los siguientes campos:</h4>
+        <%end%>
+        <ul>
+            <% student.errors.full_messages.each do |message| %>
+            <li>* <%= message %>.</li>
+            <% end %>
+        </ul>
+    </div>
+
+</div>
+<% end %>
+
+<div class="mb-3">
+    <label for="validationInput1">dni</label>
+    <input class="form-control is-invalid" id="validationInput1" placeholder="INGRESE SU NUMERO DE IDENTIFICACION NACIONAL" type="number" onkeypress="return soloNumeros(event)" value="<%= @student.document %>" name="student[document]" required></input>
+</div>
+
+<div class="mb-3">
+    <label for="validationInput">nombre(s)</label>
+    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su nombre completo" name="student[name]" value="<%= @student.name %>" type="text" onkeypress="return soloLetras(event)" required></input>
+</div>
+
+<div class="mb-3">
+    <label for="validationInput">apellido(s)</label>
+    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su apellido completo" name="student[last_name]" value="<%= @student.last_name %>" type="text" onkeypress="return soloLetras(event)" required></input>
+</div>
+
+
+<div class="mb-3">
+    <label for="validationInput">fecha de nacimiento</label>
+    <input type="date" class="form-control is-invalid" id="validationInput" name="student[date_of_birth]" value="<%= student.date_of_birth %>" required>
+</div>
+
+<div class="mb-3">
+    <label>correo electronico</label>
+    <input class="form-control is-valid" placeholder="Ingrese su correo electronico" name="student[email]" value="<%= current_user.email.upcase %>" type="email" readonly></input>
+</div>
+
+<div class="mb-3">
+    <label for="validationInput">edad</label>
+    <input class="form-control is-invalid" id="validationInput" placeholder="INGRESE SU EDAD" type="number" onkeypress="return soloNumeros(event)" name="student[age]" value="<%= @student.age %>" required></input>
+</div>
+
+<div>
+    <label>sexo</label>
+    <div class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input text-uppercase" id="customControlValidation2" name="student[gender]" value="femenino" required <%if student.gender === 'femenino' %> checked <% end %>>
+        <label class="custom-control-label" for="customControlValidation2">femenino</label>
+    </div>
+    <div class="custom-control custom-radio mb-3">
+        <input type="radio" class="custom-control-input" id="customControlValidation3" name="student[gender]" value="masculino" required <%if student.gender === 'masculino' %> checked <% end %>>
+        <label class="custom-control-label" for="customControlValidation3">masculino</label>
+        <div class="invalid-feedback">Seleccione una opcion</div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>estado civil</label>
+    <select class="custom-select" name="student[marital_status]" onChange="validar(this,1)" onBlur="validar(this,1)" required>
+        <option value="">--SELECCIONA UNA OPCION--</option>
+        <option value="soltero" <%if student.marital_status === 'soltero' %> selected="selected" <%end%>>SOLTERO</option>
+        <option value="casado" <%if student.marital_status === 'casado' %>selected="selected" <%end%>>CASADO</option>
+        <option value="divorciado" <%if student.marital_status === 'divorciado' %> selected="selected" <%end%>>DIVORCIADO</option>
+    </select>
+    <div class="invalid-feedback">Seleccione una opcion valida</div>
+</div>
+
+<div class="mb-3">
+    <label for="validationInput">nacionalidad</label>
+    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su nacionalidad" name="student[nationality]" value="<%= @student.nationality %>" type="text" onkeypress="return soloLetras(event)" required></input>
+</div>
+
+<div class="mb-3">
+    <label for="validationInput">numero de telefono</label>
+    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su numero de telefono" type="number" onkeypress="return soloNumeros(event)" name="student[number_phone]" value="<%= @student.number_phone %>" required></input>
+</div>
+
+<div class="mb-3">
+    <label for="validationInput">pais</label>
+    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su pais" name="student[country]" value="<%= @student.country %>" type="text" onkeypress="return soloLetras(event)" required></input>
+</div>
+
+<div class="mb-3">
+    <label for="validationInput">estado</label>
+    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su estado" name="student[state]" value="<%= @student.state %>" type="text" onkeypress="return soloLetras(event)" required></input>
+</div>
+
+<div class="mb-3">
+    <label for="validationInput">ciudad</label>
+    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su ciudad" name="student[city]" value="<%= @student.city %>" type="text" onkeypress="return soloLetras(event)" required></input>
+</div>
+
+<div class="mb-3">
+    <label for="validationInput">direccion</label>
+    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su direccion" name="student[address]" value="<%= @student.address %>" type="text" required></input>
+</div>
+
+<div class="form-group">
+    <label>carreras disponibles</label>
+    <select class="custom-select" name="student[career]" onChange="validar(this,2)" onBlur="validar(this,2)" required>
+        <option value="">--SELECCIONA UNA OPCION--</option>
+        <option value="informatica" <%if student.career === 'informatica' %> selected="selected" <%end%>>INFORMATICA</option>
+        <option value="derecho" <%if student.career === 'derecho' %>selected="selected" <%end%>>DERECHO</option>
+        <option value="administracion" <%if student.career === 'administracion' %> selected="selected" <%end%>>ADMINISTRACION</option>
+        <option value="telecomunicaciones" <%if student.career === 'telecomunicaciones' %> selected="selected" <%end%>>TELECOMUNICACIONES</option>
+    </select>
+    <div class="invalid-feedback">Seleccione una opcion valida</div>
+</div>
+
+<div class="mb-3">
+    <label class="text-justify" for="validationTextarea">Razon por la que considera que merece la beca</label>
+    <textarea rows="10" minlength="30" class="form-control is-invalid text-uppercase altura" id="validationTextarea" placeholder="Debe ingresar un contenido min. 30 caracteres" name="student[reason]" value="<%= student.reason %>" required><%= @student.reason%></textarea>
+</div>
+
+<p>foto de perfil</p>
+<% if @student.photo.file? %>
+<button class="btn btn-success d-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">CAMBIAR FOTO DE PERFIL</button>
+<div class="collapse" id="collapseExample">
+    <div class="custom-file mt-2">
+        <%= f.file_field :photo, class:"custom-file-input is-invalid", id:"validatedCustomFile"%>
+        <label class="custom-file-label" for="validatedCustomFile">Sube una foto...</label>
+        <div class="invalid-feedback">Debe subir un archivo valido. formatos permitidos (jpg, jpeg, png).</div>
+    </div>
+</div>
+<%else%>
+<div class="custom-file mt-2">
+    <%= f.file_field :photo, class:"custom-file-input", id:"validatedCustomFile", required:"required"%>
+    <label class="custom-file-label" for="validatedCustomFile">Sube una foto...</label>
+    <div class="invalid-feedback">Debe subir un archivo valido. formatos permitidos (jpg, jpeg, png).</div>
+</div>
+<%end%>
+<%else%>  <!-- ESTATUS DE LA BECA -->
+<div class="">
+    <label class="font-weight-bold text-success">estatus de la beca excelencia</label>
+    <div class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input text-uppercase" id="customControlValidation2" name="student[scholarship_status]" value="en_espera" required <%if student.scholarship_status === 'en_espera' %> checked <% end %>>
+        <label class="custom-control-label" for="customControlValidation2">en espera</label>
+    </div>
+    <div class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input text-uppercase" id="customControlValidation3" name="student[scholarship_status]" value="aprobada" required <%if student.scholarship_status === 'aprobada' %> checked <% end %>>
+        <label class="custom-control-label" for="customControlValidation3">Aprobar</label>
+    </div>
+    <div class="custom-control custom-radio mb-3">
+        <input type="radio" class="custom-control-input" id="customControlValidation4" name="student[scholarship_status]" value="rechazada" required <%if student.scholarship_status === 'rechazada' %> checked <% end %>>
+        <label class="custom-control-label" for="customControlValidation4">rechazar</label>
+        <div class="invalid-feedback">Seleccione una opcion</div>
+    </div>
+</div>
+<%end%>
+<!--FINAL DE LA CONDICION -->
+
+<div class="actions mt-5">
+    <%= f.submit "GUARDAR", class:"btn btn-primary" %>
+    <%= link_to 'VOLVER', @student, class:"btn btn-primary float-right" %>
+</div>
+<% end %>
+<!--FINAL DEL CICLO FOR -->

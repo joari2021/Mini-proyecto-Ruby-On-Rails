@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>University</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</head>
+
+<body class="body_fondo" id="bodys">
+
+    <%= render "partials/nav" %>
+
+    <% if notice %>
+
+    <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+        <i class="fas fa-check-circle mr-2" style="font-size:30px"></i><%= notice %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <%end%>
+    <% if alert %>
+    <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+        <i class="fas fa-exclamation-triangle mr-2" style="font-size:30px"></i><%= alert %><button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </div>
+    <%end%>
+
+    <%= yield %>
+
+    <% if user_signed_in? %>
+    <script>
+        var cuerpo = document.getElementById('bodys');
+
+        cuerpo.classList.replace('body_fondo', 'body_fondo2');
+    </script>
+    <%end%>
+    <script>
+        function soloLetras(e) {
+            key = e.keyCode || e.which;
+            tecla = String.fromCharCode(key).toUpperCase();
+            letras = "ÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+            especiales = [8, 46, 32];
+
+            tecla_especial = false
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            if (letras.indexOf(tecla) == -1 && !tecla_especial)
+                return false;
+        }
+
+        function soloNumeros(e) {
+            key = e.keyCode || e.which;
+            tecla = String.fromCharCode(key).toLowerCase();
+            letras = "1234567890";
+            especiales = [];
+
+            tecla_especial = false
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            if (letras.indexOf(tecla) == -1 && !tecla_especial)
+                return false;
+        }
+
+        function validar_email(e) {
+            key = e.keyCode || e.which;
+            var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(key) ? true : false;
+        }
+
+        function limpia(inputs) {
+            var val = inputs.value;
+            var tam = val.length;
+            for (i = 0; i < tam; i++) {
+                if (!isNaN(val[i]))
+                    inputs.value = '';
+            }
+        }
+
+        // Formatear valores de Inputs
+        function textUpperCase() {
+            x = this.value;
+            this.value = x.toUpperCase();
+        }
+
+        var elegido = false;
+
+        var elementosInput = document.getElementsByTagName('input'); //Elementos input
+
+        for (var i = 0; i < elementosInput.length; i++) {
+
+            if (elementosInput[i].type == 'text' && elegido == false) {
+                var elegidoParaFoco = elementosInput[i];
+                elegido = true;
+            }
+
+            if (elementosInput[i].type == 'text') {
+
+                elementosInput[i].addEventListener('blur', textUpperCase);
+
+                elementosInput[i].addEventListener('focus', textUpperCase);
+
+            }
+
+        }
+
+        var elegidoTextA = false;
+
+        var elementoTextArea = document.getElementsByTagName('textarea');
+
+        for (var i = 0; i < elementoTextArea.length; i++) {
+
+            if (elegidoTextA == false) {
+                var elegidoParaFoco = elementoTextArea[i];
+                elegidoTextA = true;
+            }
+
+            elementoTextArea[i].addEventListener('blur', textUpperCase);
+
+            elementoTextArea[i].addEventListener('focus', textUpperCase);
+        }
+        //VALIDACIONES
+
+        function validar(x, y) {
+            valor = x
+            num = y;
+            coincidencia = false;
+            if (num == 1) {
+                valores_permit = ["soltero", "casado", "divorciado"];
+            } else {
+                valores_permit = ["informatica", "derecho", "administracion", "telecomunicaciones"];
+            }
+
+            for (j = 0; j < valores_permit.length; j++) {
+                if (valor.value == valores_permit[j]) {
+                    coincicendia = true;
+                    values = valores_permit[j]
+                }
+            }
+            if (coincidencia == false) {
+                valor.value = values;
+            } else {
+                valor.value = " ";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

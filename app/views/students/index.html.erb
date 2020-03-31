@@ -1,0 +1,53 @@
+<div class="container margin-top">
+    <div class="m-5 bg-nav px-5 py-4 borde">
+        <% if current_user.is_admin? %>
+        <h2 class="text-center text-info mb-5">Lista de Solicitudes</h2>
+        <% end %>
+
+        <% status_std = false %>
+
+        <% @students.each do |student| %>
+        <% if current_user.id == student.user_id || current_user.is_admin?%>
+
+        <div clas="row ">
+
+            <div class="border-bottom text-uppercase mb-3 pb-3">
+                <div class="col-xl-3">
+                    <div class="avatar">
+                        <%= image_tag student.photo.url(), alt:"foto" %>
+                    </div>
+                </div>
+                <div class="col-xl-9 height">
+                    <p><strong>NOMBRE: </strong><%= student.name %> <%= student.last_name %></p>
+                    <p><strong>CARRERA: </strong><%= student.career.upcase %></p>
+
+                    <%= link_to 'VER', student, class:"btn btn-primary mr-4" %>
+                    <% unless current_user.is_admin?%>
+                    <%= link_to 'EDITAR', edit_student_path(student), class:"btn btn-primary mr-3" %>
+
+                    <% else %>
+                    <!--
+                    <%= link_to 'eliminar', student, method: :delete, data: { confirm: 'Esta seguro de eliminar este registro?' }, class:"btn btn-danger mr-3" %>
+                    -->
+                    <%if student.scholarship_status === "en_espera"%>
+                    <button class="btn btn-secondary text-uppercase desactivado" disabled>Solicitud en espera</button>
+                    <%elsif student.scholarship_status === "aprobada"%>
+                    <button class="btn btn-success text-uppercase desactivado" disabled>Solicitud aprobada</button>
+                    <%else%>
+                    <button class="btn btn-danger text-uppercase desactivado" disabled>Solicitud rechazada</button>
+                    <%end%>
+                    <%end%>
+                </div>
+                <% status_std = true %>
+
+            </div>
+        </div>
+        <% end %>
+        <% end %>
+
+        <% if status_std != true && current_user.is_admin? != true%>
+        <p class="text-center">
+        <%= link_to 'llenar ficha de datos', new_student_path, class:"btn btn-success align-center text-uppercase" %></p>
+        <% end %>
+    </div>
+</div>

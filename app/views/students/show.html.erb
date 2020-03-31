@@ -1,0 +1,122 @@
+<% if current_user.id === @student.user_id || current_user.is_admin? || @student.user_id === 1%>
+
+<div class="container margin-top">
+    <div class="m-5 bg-nav px-5 py-4 borde text-uppercase">
+
+        <h2 class="text-center font-weight-bold text-info"><%= @student.name %> <%= @student.last_name%></h2>
+        <div class="mt-5">
+            <div class="tamaño mb-3">
+                <%= image_tag @student.photo.url() %>
+            </div>
+            <p><strong>DNI: </strong><%= @student.document %></p>
+
+            <p><strong>nacionalidad: </strong><%= @student.nationality %></p>
+
+            <p><strong>fecha de nacimiento: </strong><%= @student.date_of_birth %></p>
+
+            <p><strong>edad: </strong><%= @student.age %></p>
+
+            <p><strong>genero: </strong><%= @student.gender.upcase %></p>
+
+            <p><strong>estado civil: </strong><%= @student.marital_status.upcase %></p>
+
+            <p><strong>numero de telefono: </strong><%= @student.number_phone %></p>
+
+            <p><strong>correo electronico: </strong><%= @student.email %></p>
+
+        </div>
+
+        <div class="sda-seccion">
+            <div class="bg-info border-subt">
+                <h2 class="font-italic font-weight-bold p-2 text-white">ubicacion</h2>
+            </div>
+            <p><strong>pais: </strong><%= @student.country %></p>
+
+            <p><strong>estado: </strong><%= @student.state %></p>
+
+            <p><strong>ciudad: </strong><%= @student.city %></p>
+
+            <p><strong>direccion: </strong><%= @student.address %></p>
+        </div>
+        <div class="sda-seccion my-3">
+            <div class="bg-info border-subt">
+                <h2 class="font-italic font-weight-bold p-2 text-white">postulacion</h2>
+            </div>
+            <p><strong>carrera: </strong><%= @student.career.upcase %></p>
+
+            <p><strong>razon por la que desea estudiar la profesion: </strong><%= @student.reason %></p>
+        </div>
+
+        <% if current_user.is_admin?%>
+
+        <%if @student.scholarship_status == "en_espera"%>
+        <%= link_to 'procesar solicitud de beca', edit_student_path(@student), class:"btn btn-warning btn-lg mt-3 border text-white font-weight-bold btn-block" %>
+
+        <%elsif @student.scholarship_status == "aprobada"%>
+
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Beca Aceptada!</h4>
+            <p>Esta beca ha sido aceptada por el administrador. Aparecera en la ficha de datos del estudiante un mensaje de que ha sido aprobada la solicitud de la <strong>beca excelencia</strong>.</p>
+            <hr>
+            <p class="mb-0">si desea cambiar el status de la beca del estudiante presione el boton a continacion <%= link_to 'cambiar status', edit_student_path(@student), class:"btn btn-success mt-2" %></p>
+        </div>
+
+        <%else%>
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Beca Rechazada!</h4>
+            <p>Esta beca ha sido rechazada por el administrador. Aparecera en la ficha de datos del estudiante un mensaje de que ha sido rechazada la solicitud de la <strong>beca excelencia</strong>.</p>
+            <hr>
+            <p class="mb-0">si desea cambiar el status de la beca del estudiante presione el boton a continacion <%= link_to 'cambiar status', edit_student_path(@student), class:"btn btn-danger mt-2" %></p>
+        </div>
+        <%end%>
+
+        <%else%>
+        <!-- VISTA DEL USUARIO-->
+
+        <%if @student.scholarship_status == "en_espera"%>
+
+        <div class="alert alert-dark" role="alert">
+            <h4 class="alert-heading font-weight-bold">En Espera!!!</h4>
+            <p>Sus datos han sido cargados con exito. la solicitud sera procesada en un lapso no mayor a 05 (cinco) dias; dicho procesamiento sera reflejado en esta seccion, le aconsejamos que revice la pagina constantemente para verificar el status de la solicitud de su beca. gracias por postularse!!!.</p>
+            <hr>
+
+        </div>
+
+        <%elsif @student.scholarship_status == "aprobada"%>
+
+        <div class="alert alert-success" role="alert">
+            <h2 class="alert-heading font-weight-bold">Felicidades!!!</h2>
+            <p class="text-justify">La <strong>Beca excelencia</strong> le ha sido aprobada. para proceder con su inscripcion en la universidad debe presentarse en la misma cuando le sea notificado via telefonica y por correo electronico. esperamos que pueda valorar esta oportunidad y su desempeño pueda ser excepcional en esta casa de estudio.</p>
+            <hr>
+        </div>
+
+        <%else%>
+
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading font-wight-bold">Beca Rechazada!!!</h4>
+            <p class="text-justify">la <strong>beca excelencia</strong> le ha sido rechazada. gracias por postularse y le instamos a seguir esforzandose por obtener una capacitacion universitaria, esto no debe ser motivo para que se rinda. la vida es un constante aprendizaje y la educacion es una parte esencial de nuestro diario vivir. Es la educacion lo que determina el futuro.</p>
+            <hr>
+        </div>
+        <%end%>
+
+        <%end%>
+
+        <div class="mt-5">
+            <% unless current_user.is_admin?%>
+            <%= link_to 'editar', edit_student_path(@student), class:"btn btn-primary float-right" %>
+            <%end%>
+            <%= link_to 'volver', students_path, class:"btn btn-primary" %>
+        </div>
+    </div>
+</div>
+
+<%else%>
+
+<div class="container margin-top">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Ooooopss!!!</h4>
+        <p class="text-uppercase">Parece que la Url tiene un error, pulsa el boton volver para ir a una url valida.</p>
+        <p class="mb-0"><%= link_to 'VOLVER', students_path, class:"btn btn-danger mt-2" %></p>
+    </div>
+</div>
+<%end%>

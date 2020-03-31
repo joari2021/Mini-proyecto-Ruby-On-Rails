@@ -1,0 +1,25 @@
+<% usuario_registro = false%>
+<% @students.each do |student|%>
+    <%if student.user_id === current_user.id%>
+        <%usuario_registro = true%>
+    <%end%>
+<%end%>
+
+<%if usuario_registro === false%>
+<div class="container margin-top">
+    <div class="m-5 bg-nav px-5 py-4 borde">
+        <h1 class="text-primary text-uppercase text-center mb-5">nueva ficha de datos</h1>
+
+        <%= render 'form', student: @student %>
+
+    </div>
+</div>
+<%else%>
+<div class="container margin-top">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Ooooopss!!!</h4>
+        <p class="text-uppercase">Parece que la Url tiene un error, pulsa el boton volver para ir a una url valida.</p>
+        <p class="mb-0"><%= link_to 'VOLVER', students_path, class:"btn btn-danger mt-2" %></p>
+    </div>
+</div>
+<%end%>
