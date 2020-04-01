@@ -24,29 +24,23 @@
 #  <<: *default
 #  database: db/production.sqlite3
 
-
-
-development:
+default: &default
   adapter: postgresql
   encoding: unicode
-  database: university_development
-  pool: 5
-  username: dave
-  password:
-  timeout: 5000
-          
-  test:
-  adapter: postgresql
-  encoding: unicode
-  database: university_test
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
   username: jorge
-  password:
-  timeout: 5000
-   
-#production:
- #  adapter: mysql2
- #  database: student_production
-  # username: jocari
-   #password: jocari2021
-   #host: localhost
+  password: 
+
+development:
+  <<: *default
+  database: "development_student"
+
+test:
+  <<: *default
+  database: "test_student"
+
+production:
+  <<: *default
+  database: "production_student"
