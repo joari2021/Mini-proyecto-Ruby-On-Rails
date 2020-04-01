@@ -16,6 +16,7 @@ class CreateStudents < ActiveRecord::Migration[6.0]
       t.string :address
       t.string :career
       t.string :reason
+      t.string :email
 
       t.timestamps
     end
