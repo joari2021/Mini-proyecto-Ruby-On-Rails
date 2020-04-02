@@ -1,8 +1,7 @@
 class Student < ApplicationRecord
     belongs_to :user
 
-    validates :document, numericality: { message: " este campo no puede estar vacio" }
-    validates :name, :last_name, :nationality, :state, :country, :city, :address, :reason, :gender, :marital_status, :career, presence: { message: " este campo no puede estar vacio"}
+    validates :document, :age, :number_phone, :name, :last_name, :nationality, :state, :country, :city, :address, :reason, :gender, :marital_status, :career, presence: { message: " este campo no puede estar vacio"}
     validates :date_of_birth, presence: { message: " este campo contiene datos incorrectos"}
 
     validates :reason, length: {minimum:30, message: " el contenido es muy corto (caracteres minimos 30)"}

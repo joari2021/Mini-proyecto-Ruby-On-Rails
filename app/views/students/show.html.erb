@@ -44,7 +44,7 @@
             </div>
             <p><strong>carrera: </strong><%= @student.career.upcase %></p>
 
-            <p><strong>razon por la que desea estudiar la profesion: </strong><%= @student.reason %></p>
+            <p><strong>Razon por la que considera que merece la beca: </strong><%= @student.reason %></p>
         </div>
 
         <% if current_user.is_admin?%>
@@ -77,7 +77,7 @@
 
         <div class="alert alert-dark" role="alert">
             <h4 class="alert-heading font-weight-bold">En Espera!!!</h4>
-            <p>Sus datos han sido cargados con exito. la solicitud sera procesada en un lapso no mayor a 05 (cinco) dias; dicho procesamiento sera reflejado en esta seccion, le aconsejamos que revice la pagina constantemente para verificar el status de la solicitud de su beca. gracias por postularse!!!.</p>
+            <p class="text-justify">Sus datos han sido cargados con exito. la solicitud sera procesada en un lapso no mayor a 05 (cinco) dias; dicho procesamiento sera reflejado en esta seccion, le aconsejamos que revice la pagina constantemente para verificar el status de la solicitud de su beca. gracias por postularse!!!.</p>
             <hr>
 
         </div>

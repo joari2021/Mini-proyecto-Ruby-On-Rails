@@ -109,5 +109,17 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  config.action_mailer.default_url_options = { host: "www.example.com" }
+
+  config.action_mailer.default_url_options = { :host => 'http://boiling-sierra-05685.herokuapp.com' }
+    config.action_mailer.delivery_method = :smtp
+  
+    config.action_mailer.smtp_settings = {
+      :address => "smtp.gmail.com",
+      :port => 587,
+      :authentication => :plain,
+      :domain => 'gmail.com',
+      :enable_starttls_auto => true,
+      :user_name => 'jorge.uchija2021@gmail.com',
+      :password => 'korfylfvtdcuifza'
+    }
 end

@@ -22,7 +22,7 @@
 
 <div class="mb-3">
     <label for="validationInput1">dni</label>
-    <input class="form-control is-invalid" id="validationInput1" placeholder="INGRESE SU NUMERO DE IDENTIFICACION NACIONAL" type="number" onkeypress="return soloNumeros(event)" value="<%= @student.document %>" name="student[document]" required></input>
+    <input class="form-control is-invalid" id="validationInput1" placeholder="INGRESE SU NUMERO DE IDENTIFICACION NACIONAL" type="text" onkeypress="return soloNumeros(event)" value="<%= @student.document %>" name="student[document]" required></input>
 </div>
 
 <div class="mb-3">
@@ -77,12 +77,12 @@
 
 <div class="mb-3">
     <label for="validationInput">nacionalidad</label>
-    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su nacionalidad" name="student[nationality]" value="<%= @student.nationality %>" type="text" onkeypress="return soloLetras(event)" required></input>
+    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su nacionalidad" name="student[nationality]" value="<%= @student.nationality %>" type="text" onkeypress="return soloLetras(event)" required="required"></input>
 </div>
 
 <div class="mb-3">
     <label for="validationInput">numero de telefono</label>
-    <input class="form-control is-invalid text-uppercase" id="validationInput" placeholder="Ingrese su numero de telefono" type="number" onkeypress="return soloNumeros(event)" name="student[number_phone]" value="<%= @student.number_phone %>" required></input>
+    <input class="form-control is-invalid" id="validationInput" placeholder="INGRESE SU NUMERO DE TELEFONO" type="number" onkeypress="return soloNumeros(event)" name="student[number_phone]" value="<%= @student.number_phone %>" required="required"></input>
 </div>
 
 <div class="mb-3">
